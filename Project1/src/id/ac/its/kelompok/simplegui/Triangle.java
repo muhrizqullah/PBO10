@@ -1,5 +1,7 @@
 package id.ac.its.kelompok.simplegui;
 
+import java.lang.Math;
+
 public class Triangle extends Shape{
 
      private double a;
@@ -14,7 +16,8 @@ public class Triangle extends Shape{
      
      @Override
      public double getArea() {
-          return (a * b)/2;
+          double s = (a + b + c) / 2;
+          return Math.sqrt(s * (s - a) * (s - b) * (s - c));
      }
 
      @Override

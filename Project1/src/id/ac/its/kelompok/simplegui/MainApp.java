@@ -28,5 +28,11 @@ public class MainApp {
                Triangle tri = new Triangle(a, b, c);
                JOptionPane.showMessageDialog(null, "Luas Segitiga: " + tri.getArea() + "Keliling Segitiga: " + tri.getCircumference(), "Hasil Perhitungan" , JOptionPane.PLAIN_MESSAGE);
          }
+
+         else
+         {
+               JOptionPane.showMessageDialog(null, "Masukan bentuk 2 dimensi!\nEx. Circle, Triangle, Square!",
+               "Error!", JOptionPane.ERROR_MESSAGE);
+         }
      }
 }
