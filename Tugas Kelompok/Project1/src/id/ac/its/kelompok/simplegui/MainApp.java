@@ -52,10 +52,31 @@ public class MainApp {
         	 	Parallelogram par = new Parallelogram(base, height, side);
         	 	JOptionPane.showMessageDialog(null, "Luas Jajar Genjang: " + par.getArea() + "\nKeliling Jajar Genjang: " + par.getCircumference(), "Hasil Perhitungan" , JOptionPane.PLAIN_MESSAGE);
          }
-
+         else if(shapeType.equals("Square")||shapeType.equals("square")) {
+        	 String sideString = JOptionPane.showInputDialog("Masukan panjang sisi");
+        	 
+        	 double side = Double.parseDouble(sideString);
+        	 double width = 0;
+        	 double length = 0;
+			
+        	 Square sq = new Square(length, width, side);
+        	 JOptionPane.showMessageDialog(null, "Luas Persegi: " + sq.getArea() + "\nKeliling Persegi: " + sq.getCircumference(), "Hasil Perhitungan", JOptionPane.PLAIN_MESSAGE);
+         }
+         else if(shapeType.equals("Diamond")||shapeType.equals("diamond")) {
+        	 String sideString = JOptionPane.showInputDialog("Masukan panjang sisi");
+        	 String d1String = JOptionPane.showInputDialog("Masukan panjang diagonal 1");
+        	 String d2String = JOptionPane.showInputDialog("Masukan panjang diagonal 2");
+        	 
+        	 double side = Double.parseDouble(sideString);
+        	 double d1 = Double.parseDouble(d1String);
+        	 double d2 = Double.parseDouble(d2String);
+        	 
+        	 Diamond dnd = new Diamond(side, d1, d2);
+        	 JOptionPane.showMessageDialog(null, "Luas Belah Ketupat: " + dnd.getArea() + "\nKeliling Belah Ketupat: " + dnd.getCircumference(), "Hasil PErhitungan", JOptionPane.PLAIN_MESSAGE);
+         }
          else
          {
-               JOptionPane.showMessageDialog(null, "Masukan bentuk 2 dimensi!\nEx. Circle, Triangle, Rectangle, Parallelogram!",
+               JOptionPane.showMessageDialog(null, "Masukan bentuk 2 dimensi!\nEx. Circle, Triangle, Rectangle, Parallelogram, Square, Diamond!",
                "Error!", JOptionPane.ERROR_MESSAGE);
          }
      }
