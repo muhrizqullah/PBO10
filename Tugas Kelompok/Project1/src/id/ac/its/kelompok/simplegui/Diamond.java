@@ -1,4 +1,4 @@
-package id.ac.its.chris;
+package id.ac.its.kelompok.simplegui;
 
 public class Diamond extends Shape {
 	private double side;
