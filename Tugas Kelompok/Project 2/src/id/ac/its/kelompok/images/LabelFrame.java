@@ -28,11 +28,8 @@ public class LabelFrame extends JFrame{
 		// Chris buat disini
 
 		// Label 2
-		// Bunga yang punya kamu dibuat jadi 1 label aja gausah dipisah.
 		ImageIcon  bungaImg = new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("/bunga.png")).getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH));
-
-		label2 = new JLabel();
-		label2.setText("Bunga Fairuz W 05111940000030");
+		label2 = new JLabel("<html> Nama : Bunga Fairuz Wijdan <br> NRP : 05111940000030</html>");
 		label2.setIcon(bungaImg);
 		label2.setHorizontalTextPosition(SwingConstants.CENTER);
 		label2.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -41,9 +38,7 @@ public class LabelFrame extends JFrame{
 
 		// Label 3
 		ImageIcon  akbarImg = new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("/akbar.jpg")).getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH));
-
-		label3 = new JLabel();
-		label3.setText("Muhammad Rizqullah A 05111940000178");
+		label3 = new JLabel("<html> Nama : Muhammad Rizqullah A <br> NRP : 05111940000178</html>");
 		label3.setIcon(akbarImg);
 		label3.setHorizontalTextPosition(SwingConstants.CENTER);
 		label3.setVerticalTextPosition(SwingConstants.BOTTOM);
