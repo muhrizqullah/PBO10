@@ -7,7 +7,7 @@ public class LabelTest {
 	{
 		LabelFrame labelFrame = new LabelFrame();
 		labelFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		labelFrame.setSize(1000, 1000);
+		labelFrame.setSize(1366, 768);
 		labelFrame.setVisible(true);
 	}
 }
