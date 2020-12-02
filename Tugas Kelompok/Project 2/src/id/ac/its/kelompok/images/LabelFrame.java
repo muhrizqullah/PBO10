@@ -13,7 +13,7 @@ public class LabelFrame extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	//private final JLabel label1;
-	//private final JLabel label2;
+	private final JLabel label2;
 	private final JLabel label3;
 	
 	public LabelFrame() {
@@ -29,6 +29,15 @@ public class LabelFrame extends JFrame{
 
 		// Label 2
 		// Bunga yang punya kamu dibuat jadi 1 label aja gausah dipisah.
+		ImageIcon  bungaImg = new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("/bunga.png")).getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH));
+
+		label2 = new JLabel();
+		label2.setText("Bunga Fairuz W 05111940000030");
+		label2.setIcon(bungaImg);
+		label2.setHorizontalTextPosition(SwingConstants.CENTER);
+		label2.setVerticalTextPosition(SwingConstants.BOTTOM);
+		add(label2);
+		
 
 		// Label 3
 		ImageIcon  akbarImg = new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("/akbar.jpg")).getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH));
