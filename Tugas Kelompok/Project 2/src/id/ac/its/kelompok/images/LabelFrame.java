@@ -12,7 +12,7 @@ import javax.swing.ImageIcon;
 public class LabelFrame extends JFrame{
 
 	private static final long serialVersionUID = 1L;
-	//private final JLabel label1;
+	private final JLabel label1;
 	private final JLabel label2;
 	private final JLabel label3;
 	
@@ -20,12 +20,15 @@ public class LabelFrame extends JFrame{
 		super("Data Mahasiswa");
 		setLayout(new FlowLayout());
 
-		// Tipe data label udah aku buat tinggal hapus comment aja
-		// cara resize image ikut instansiasi akbarIMG aja 200x200 pixel
-		// udah aku crop jadi kotak semua fotonya
-		
 		// Label 1
-		// Chris buat disini
+		ImageIcon christopherImg = new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("/christopher.jpg")).getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH));
+		
+		label1 = new JLabel();
+		label1.setText("<html> Nama : Christopher Baptista <br> NRP : 05111940000001</html>");
+		label1.setIcon(christopherImg);
+		label1.setHorizontalTextPosition(SwingConstants.CENTER);
+		label1.setVerticalTextPosition(SwingConstants.BOTTOM);
+		add(label1);
 
 		// Label 2
 		ImageIcon  bungaImg = new ImageIcon(new javax.swing.ImageIcon(getClass().getResource("/bunga.png")).getImage().getScaledInstance(200, 200, Image.SCALE_SMOOTH));
