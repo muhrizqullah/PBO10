@@ -66,11 +66,11 @@ public class SpaceShip extends Sprite {
           }
      }
   
-      public void fire() {
+     public void fire() {
           missiles.add(new Missile(x + width, y + height / 2));
      }
   
-      public void keyReleased(KeyEvent e) {
+     public void keyReleased(KeyEvent e) {
   
           int key = e.getKeyCode();
   

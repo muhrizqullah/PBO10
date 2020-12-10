@@ -75,16 +75,16 @@ public class Board extends JPanel implements ActionListener{
 	 public void paintComponent(Graphics g) {
 	        super.paintComponent(g);
 	        
-	        
 	        if (ingame) {
-	        	System.out.println("ok");
+	        	//System.out.println("ok");
+	        	
 	            drawObjects(g);
 
 	        } 
-//	        else {
-//
-//	            drawGameOver(g);
-//	        }
+	        else {
+
+	            drawGameOver(g);
+	        }
 
 	        Toolkit.getDefaultToolkit().sync();
 	 }
@@ -92,6 +92,7 @@ public class Board extends JPanel implements ActionListener{
 	 private void drawObjects(Graphics g) {
 		 	
 	        if (spaceship.isVisible()) {
+	        	//System.out.println("ok");
 	            g.drawImage(spaceship.getImage(), spaceship.getX(), spaceship.getY(),
 	                    this);
 	        }
@@ -129,7 +130,7 @@ public class Board extends JPanel implements ActionListener{
 	 
 	 @Override
 	 public void actionPerformed(ActionEvent e) {
-
+		 	
 	        inGame();
 
 	        updateShip();
