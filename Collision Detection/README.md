@@ -130,5 +130,6 @@ main Class untuk menjalankan program. Dalam class ini terdapat method inisialisa
     }
 ```
 ### Screenshot Class Diagram
+![Capture28](https://user-images.githubusercontent.com/57831206/102113645-d9b6f100-3e6b-11eb-9345-ee492b9bd422.JPG)
 ### Screenshot Jalannya Program
 <img height="300px" alt="DemoApp" src="READMEAssets/DemoApp.gif">
