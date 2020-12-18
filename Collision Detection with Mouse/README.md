@@ -4,7 +4,7 @@ Jadi, perubahan dari program sebelumnya yaitu :
 * Mengganti kontrol perpindahan spaceship dengan mouse
 * Menambahkan kontrol klik mouse untuk mengeluarkan Missile dari spaceship
 
-Perubahan dilakukan dengan cara menambahkan kelas Madapter pada class Board untuk menjadi mouse Listener:
+Perubahan dilakukan dengan cara menambahkan kelas MAdapter pada class Board untuk menjadi mouse Listener:
 ```
 private class MAdapter extends MouseAdapter{
 		 
