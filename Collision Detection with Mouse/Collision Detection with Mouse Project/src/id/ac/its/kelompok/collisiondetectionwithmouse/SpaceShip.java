@@ -1,6 +1,7 @@
 package id.ac.its.kelompok.collisiondetectionwithmouse;
 
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,8 +26,8 @@ public class SpaceShip extends Sprite {
 
      public void move() {
 
-          x += dx;
-          y += dy;
+          x = dx;
+          y = dy;
 
           if (x < 1) {
                x = 1;
@@ -40,7 +41,18 @@ public class SpaceShip extends Sprite {
      public List<Missile> getMissiles() {
           return missiles;
      }
-
+     
+     public void mousemoved(MouseEvent e) {
+    	 
+    	 dx = e.getX();
+    	 dy = e.getY();
+     }
+     
+     public void mouseclicked(MouseEvent e) {
+    	// System.out.println(e.getX() +","+ e.getY());
+    	 fire();
+     }
+     
      public void keyPressed(KeyEvent e) {
 
           int key = e.getKeyCode();
@@ -48,46 +60,11 @@ public class SpaceShip extends Sprite {
           if (key == KeyEvent.VK_SPACE) {
               fire();
           }
-  
-          if (key == KeyEvent.VK_LEFT) {
-              dx = -1;
-          }
-  
-          if (key == KeyEvent.VK_RIGHT) {
-              dx = 1;
-          }
-  
-          if (key == KeyEvent.VK_UP) {
-              dy = -1;
-          }
-  
-          if (key == KeyEvent.VK_DOWN) {
-              dy = 1;
-          }
      }
   
      public void fire() {
           missiles.add(new Missile(x + width, y + height / 2));
      }
   
-     public void keyReleased(KeyEvent e) {
-  
-          int key = e.getKeyCode();
-  
-          if (key == KeyEvent.VK_LEFT) {
-              dx = 0;
-          }
-  
-          if (key == KeyEvent.VK_RIGHT) {
-              dx = 0;
-          }
-  
-          if (key == KeyEvent.VK_UP) {
-              dy = 0;
-          }
-  
-          if (key == KeyEvent.VK_DOWN) {
-              dy = 0;
-          }
-     }
+
 }

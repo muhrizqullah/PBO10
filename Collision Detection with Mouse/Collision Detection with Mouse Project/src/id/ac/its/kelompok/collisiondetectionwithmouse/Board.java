@@ -1,16 +1,21 @@
 package id.ac.its.kelompok.collisiondetectionwithmouse;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JPanel;
@@ -47,6 +52,9 @@ public class Board extends JPanel implements ActionListener{
 	 private void initBoard() {
 
 	        addKeyListener(new TAdapter());
+	
+		 	addMouseListener(new MAdapter());
+		 	addMouseMotionListener(new MAdapter());
 	        setFocusable(true);
 	        setBackground(Color.BLACK);
 	        ingame = true;
@@ -229,18 +237,37 @@ public class Board extends JPanel implements ActionListener{
 	 }
 	 
 	 private class TAdapter extends KeyAdapter {
-
-	        @Override
-	        public void keyReleased(KeyEvent e) {
-	            spaceship.keyReleased(e);
-	        }
-
-	        @Override
 	        public void keyPressed(KeyEvent e) {
 	            spaceship.keyPressed(e);
 	        }
 	 }
 	 
-	 
-	 
+	 private class MAdapter extends MouseAdapter{
+		 
+		 public void mouseEntered (MouseEvent e) {
+			 BufferedImage cursorImg = new BufferedImage(16, 16, BufferedImage.TYPE_INT_ARGB);
+			 Cursor blankCursor = Toolkit.getDefaultToolkit().createCustomCursor(
+					    cursorImg, new Point(0, 0), "blank cursor");
+			 setCursor(blankCursor);
+		 }
+		
+		 public void mouseClicked(MouseEvent e) {
+			 spaceship.mouseclicked(e);
+		 }
+		 
+		 public void mouseMoved(MouseEvent e) {
+			 spaceship.mousemoved(e);
+		 }
+		 
+		 public void mouseDragged(MouseEvent e) {
+			 spaceship.mousemoved(e);
+			 spaceship.mouseclicked(e);
+		 }
+		 
+		 
+		 
+	 }
 }
+	 
+	 
+	 
