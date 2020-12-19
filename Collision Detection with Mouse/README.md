@@ -38,13 +38,17 @@ Untuk perubahan posisi spaceship pada class SpaceShip diubah menjadi:
     	 dy = e.getY();
      }
 ```
+Sehingga posisi dari spaceship dapat sesuai dengan posisi dari kursor yaitu pada koordinat X dan Y.
+
 Untuk menambah kontrol klik mouse untuk mengeluarkan missile ditambahkan fungsi pada class SpaceShip sebagai berikut:
 ```
 public void mouseclicked(MouseEvent e) {
     	 fire();
      }
 ```
+Dengan penambahan ini, penembakan missile dapat dilakukan dengan klik mouse dan spasi.
 ### Screenshot Class Diagram
 
 ### Screenshot Jalannya Program
 
+<img height="300px" alt="DemoApp" src="READMEAssets/DemoAppMouse.gif">
