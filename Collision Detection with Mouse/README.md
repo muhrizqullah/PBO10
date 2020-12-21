@@ -48,7 +48,7 @@ public void mouseclicked(MouseEvent e) {
 ```
 Dengan penambahan ini, penembakan missile dapat dilakukan dengan klik mouse dan spasi.
 ### Screenshot Class Diagram
-![Capture30](https://user-images.githubusercontent.com/57831206/102791028-f78ad580-43d8-11eb-9839-397aeb9433ae.JPG)
+![Capture31](https://user-images.githubusercontent.com/57831206/102791219-40428e80-43d9-11eb-907c-6435645be374.JPG)
 
 ### Screenshot Jalannya Program
 
