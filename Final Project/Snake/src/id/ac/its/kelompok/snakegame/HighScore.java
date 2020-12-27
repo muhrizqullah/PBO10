@@ -74,7 +74,7 @@ package id.ac.its.kelompok.snakegame;
 					new HighScore(0," ")};
 			try 
 			{
-				System.out.println("Hi1");
+				System.out.println("Initiate HighScores.dat");
 				ObjectOutputStream o=new ObjectOutputStream(new FileOutputStream("HighScores.dat"));
 				o.writeObject(h);
 				o.close();

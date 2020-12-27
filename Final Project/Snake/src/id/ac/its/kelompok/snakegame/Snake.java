@@ -1,12 +1,11 @@
 package id.ac.its.kelompok.snakegame;
-import java.awt.Image;
-import java.awt.event.KeyEvent;
-import javax.swing.ImageIcon;
+
 import java.util.*;
 
 public class Snake {
     private Direction direction;
     private Point head;
+    private int level=1;
     private ArrayList<Point> tail;
     
     public Snake(int x, int y) {
@@ -31,7 +30,7 @@ public class Snake {
         
         this.tail = newTail;
         
-        this.head.move(this.direction, 10);
+        this.head.move(this.direction, 4 * getLevel());
     }
     
     public void addTail() {
@@ -53,4 +52,13 @@ public class Snake {
     public Point getHead() {
         return this.head;
     }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
 }

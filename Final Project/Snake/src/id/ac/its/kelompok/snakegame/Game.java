@@ -7,7 +7,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
 import java.io.*;
-import javax.imageio.*;
 import javax.swing.*;
 
 public class Game extends JPanel {
@@ -102,11 +101,12 @@ public class Game extends JPanel {
 
         status = newStatus;
         if(status == GameStatus.SHOW_HIGHSCORE)
-        	System.out.println("bisasi");
+        	System.out.println("Next Game");
     }
 
     private void togglePause() {
         setStatus(status == GameStatus.PAUSED ? GameStatus.RUNNING : GameStatus.PAUSED);
+        repaint();
     }
 
     private void checkForGameOver() {
@@ -144,7 +144,7 @@ public class Game extends JPanel {
         if (status == GameStatus.NOT_STARTED) {
           drawCenteredString(g2d, "SNAKE", FONT_XL, 200);
           drawCenteredString(g2d, "GAME", FONT_XL, 300);
-          drawCenteredString(g2d, "Press  any  key  to  begin", FONT_M_ITALIC, 330);
+          drawCenteredString(g2d, "Tekan keyboard untuk mulai main!", FONT_M_ITALIC, 330);
 
           return;
         }
@@ -156,21 +156,23 @@ public class Game extends JPanel {
         
         if (status == GameStatus.SHOW_HIGHSCORE) {
         	
-        	System.out.println("show_highscore%n");
+        	System.out.println("Show HighScores");
 
         	g2d.drawString("Name", 100,80);
 			g2d.drawString("Score", 320, 80);
 			g2d.drawLine(60, 90, 400, 90);
-			g2d.setFont(new Font("Arial", Font.BOLD, 22));
+            g2d.setFont(new Font("Arial", Font.BOLD, 22));
+            
+            
 			for (int i=0; i<h.length; i++)
-				if (h[i].getScore()>0)
+				if (HighScore.getHighScores()[i].getScore()>0)
 				{
 					g2d.drawString(new Integer(i+1).toString()+".", 65, 115+i*40);
 					g2d.drawString(h[i].getName(), 100, 115+i*40);
 					g2d.drawString(new Integer(h[i].getScore()).toString(), 320, 115+i*40);
 				}
-			
-			drawCenteredString(g2d, "Press  any  key  to  play again", FONT_M_ITALIC, 330);
+            
+            g2d.drawString("Tekan keyboard untuk main lagi!", 250, 535);
 			return;
         }
         
@@ -185,15 +187,17 @@ public class Game extends JPanel {
         }
 
         if (status == GameStatus.GAME_OVER) {
-        	System.out.println("gameover%n");
-            drawCenteredString(g2d, "Press  enter  to  show high score", FONT_M_ITALIC, 330);
-            drawCenteredString(g2d, "GAME OVER", FONT_L, 300);
+        	System.out.println("Gameover");
+            drawCenteredString(g2d, "Tekan ENTER untuk melihat Top Score", FONT_M_ITALIC, 330);
+            drawCenteredString(g2d, "Yah, Nabrak!", FONT_L, 300);
            
 			return;
         }
 
         if (status == GameStatus.PAUSED) {
-            g2d.drawString("Paused", 600, 14);
+            System.out.println("Paused");
+            drawCenteredString(g2d, "Loh, kok berhenti?", FONT_M_ITALIC, 300);
+            return;
         }
         
         
@@ -243,18 +247,20 @@ public class Game extends JPanel {
             if (status == GameStatus.GAME_OVER && key == KeyEvent.VK_ENTER) {
             	if (points>HighScore.getHighScores()[9].getScore())
             		{
-            			String name=JOptionPane.showInputDialog(null, "You got a high score!\nPlease enter you name.\nNote: Only 10 characters will be saved.",
-            					"Tetris", JOptionPane.INFORMATION_MESSAGE);
-            			if (name!=null)
+            			String name=JOptionPane.showInputDialog(null, "Wah masuk Top Score, Hebat!\nTulis namamu dong.\nNote: Oiya, maksimal 10 karakter ya!",
+            					"Yeay!", JOptionPane.INFORMATION_MESSAGE);
+                        if (name!=null)
+                        {
             				HighScore.addHighScore(new HighScore(points,(name.length()>10)?name.substring(0, 10):name));
+                            h = HighScore.getHighScores();
+                        }
             		}
             	
             	showHighscore();
-            	System.out.println("masuk");
-                //reset();
+            	System.out.println("NewGame");
             }
 
-            if (key == KeyEvent.VK_P) {
+            if (key == KeyEvent.VK_ESCAPE) {
                 togglePause();
             }
         }
