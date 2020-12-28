@@ -5,7 +5,8 @@ import java.util.*;
 public class Snake {
     private Direction direction;
     private Point head;
-    private int level=1;
+    private int level = 2;
+    private int r = 255, g = 212, b = 0;
     private ArrayList<Point> tail;
     
     public Snake(int x, int y) {
@@ -19,23 +20,19 @@ public class Snake {
     }
 
     public void move() {
-        ArrayList newTail = new ArrayList<Point>();
+        ArrayList<Point> newTail = new ArrayList<Point>();
         
         for (int i = 0, size = tail.size(); i < size; i++) {
-            Point current = tail.get(i);
             Point previous = i == 0 ? head : tail.get(i - 1);
 
             newTail.add(new Point(previous.getX(), previous.getY()));
         }
         
         this.tail = newTail;
-        
         this.head.move(this.direction, 4 * getLevel());
     }
     
     public void addTail() {
-        Point last = this.tail.get(this.tail.size() - 1);
-        
         this.tail.add(new Point(-10, -10));
     }
     
@@ -61,4 +58,29 @@ public class Snake {
         this.level = level;
     }
 
+    public int getR() {
+        return r;
+    }
+
+    public void setR(int r) {
+        this.r = r;
+    }
+
+    public int getG() {
+        return g;
+    }
+
+    public void setG(int g) {
+        this.g = g;
+    }
+
+    public int getB() {
+        return b;
+    }
+
+    public void setB(int b) {
+        this.b = b;
+    }
+
+    
 }
