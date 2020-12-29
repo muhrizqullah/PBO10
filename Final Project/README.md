@@ -28,7 +28,10 @@ Pada class ini berfungsi melakukan pengulangan program sesuai alur, hingga user 
 ### Screenshot Jalannya Program
 
 <img height="400px" alt="DemoApp" src="READMEAssets/DemoAppSnake.gif">
+
 [Video Youtube](https://youtu.be/wpvXzk0td7U)
 
 ### Link Referensi
 [HighScore](https://github.com/gterrono/tetris/tree/master/src)
+
+[Snake](http://zetcode.com/javagames/snake/)
