@@ -24,7 +24,9 @@ public class Game extends JPanel {
     private Color color;
     private int level;
     private String strlevel;
+    //private String biteFile;
     
+    //private SoundEffect bite = new SoundEffect();
     private static Font FONT_M = new Font("ArcadeClassic", Font.PLAIN, 24);
     private static Font FONT_M_ITALIC = new Font("ArcadeClassic", Font.ITALIC, 24);
     private static Font FONT_L_ITALIC = new Font("ArcadeClassic", Font.ITALIC, 60);
@@ -52,7 +54,7 @@ public class Game extends JPanel {
         pick_color = 1;
         color = Color.BLUE;
         level = 1;
-        strlevel = "mudah";
+        strlevel = "Mudah";
         repaint();
         
     }
@@ -67,8 +69,10 @@ public class Game extends JPanel {
 
     private void update() {
         snake.move(level);
-
-        if (cherry != null && snake.getHead().intersects(cherry, 20)) {
+        //biteFile = ".//bite.wav";
+        if (cherry != null && snake.getHead().intersects(cherry, 15)) {
+            //bite.setFile(biteFile);
+            //bite.play();
             snake.addTail();
             cherry = null;
             points += 1 * level;
@@ -108,8 +112,6 @@ public class Game extends JPanel {
         }
 
         status = newStatus;
-//        if(status == GameStatus.SHOW_HIGHSCORE)
-//        	System.out.println("Next Game");
     }
 
     private void togglePause() {
@@ -183,30 +185,30 @@ public class Game extends JPanel {
     private void levelpicker(Graphics2D g) {
 
     	if(this.level == 1) {
-    		strlevel = "mudah";
+    		strlevel = "Mudah";
     		g.setColor(new Color(185, 49, 79));
-            drawCenteredString(g, "mudah", FONT_M, 300);
+            drawCenteredString(g, "Mudah", FONT_M, 300);
         	g.setColor(new Color(179, 240, 219));
-            drawCenteredString(g, "sedang", FONT_M, 350);
-            drawCenteredString(g, "sulit", FONT_M, 400);
+            drawCenteredString(g, "Sedang", FONT_M, 350);
+            drawCenteredString(g, "Sulit", FONT_M, 400);
     	}
     	
     	if(this.level == 2) {
-    		strlevel = "sedang";
+    		strlevel = "Sedang";
     		g.setColor(new Color(179, 240, 219));
-            drawCenteredString(g, "mudah", FONT_M, 300);
+            drawCenteredString(g, "Mudah", FONT_M, 300);
             g.setColor(new Color(185, 49, 79));
-            drawCenteredString(g, "sedang", FONT_M, 350);
+            drawCenteredString(g, "Sedang", FONT_M, 350);
             g.setColor(new Color(179, 240, 219));
-            drawCenteredString(g, "sulit", FONT_M, 400);
+            drawCenteredString(g, "Sulit", FONT_M, 400);
     	}
     	if(this.level == 3) {
-    		strlevel = "sulit";
+    		strlevel = "Sulit";
     		g.setColor(new Color(179, 240, 219));
-            drawCenteredString(g, "mudah", FONT_M, 300);   
-            drawCenteredString(g, "sedang", FONT_M, 350);
+            drawCenteredString(g, "Mudah", FONT_M, 300);   
+            drawCenteredString(g, "Sedang", FONT_M, 350);
             g.setColor(new Color(185, 49, 79));
-            drawCenteredString(g, "sulit", FONT_M, 400);
+            drawCenteredString(g, "Sulit", FONT_M, 400);
     	}
     	
     }
@@ -219,24 +221,24 @@ public class Game extends JPanel {
         g2d.setFont(FONT_M);
 
         if (status == GameStatus.NOT_STARTED) {
-        	System.out.println("masukk");
+        	System.out.println("Masuk");
           drawCenteredString(g2d, "SNAKE", FONT_XL, 200);
           g2d.setColor(new Color(185, 49, 79));
           drawCenteredString(g2d, "GAME", FONT_XL, 300);
           g2d.setColor(new Color(97, 168, 156));
           drawCenteredString(g2d, "Tekan keyboard untuk mulai main!", FONT_M_ITALIC, 360);
           drawCenteredString(g2d, "Tekan Space untuk pengaturan!", FONT_M_ITALIC, 390);
-          drawCenteredString(g2d, "kesulitan : " + strlevel, FONT_M_ITALIC, 540);
+          drawCenteredString(g2d, "Kesulitan : " + strlevel, FONT_M_ITALIC, 540);
        
           return;
         }
 
         if (status == GameStatus.SETTINGS) {
-//            System.out.println("Settings");
+            System.out.println("Settings");
             drawCenteredString(g2d, "SETTINGS", FONT_L_ITALIC, 75);
             
             //pilih color
-            drawCenteredString(g2d, "Tentukan warnamu sendiri!", FONT_M_ITALIC, 125);
+            drawCenteredString(g2d, "Pilih warna ularmu sendiri!", FONT_M_ITALIC, 125);
             g2d.setColor(Color.BLUE);
             g2d.fillRect(60, 140, 50, 50);
             
@@ -261,7 +263,7 @@ public class Game extends JPanel {
             colorpicker(g2d);
             
             //pilih level
-            drawCenteredString(g2d, "Tentukan kesulitan yang kamu inginkan", FONT_M_ITALIC, 250);            
+            drawCenteredString(g2d, "Pilih tingkat kesulitan yang kamu inginkan", FONT_M_ITALIC, 250);            
             levelpicker(g2d);
             
             g2d.setColor(new Color(97, 168, 156));
@@ -274,7 +276,7 @@ public class Game extends JPanel {
 
         g2d.setColor(new Color(90, 182, 193)); //Wana tulisan SCORE
         g2d.drawString("SCORE: " + String.format ("%04d", points), 10, 30);
-        drawCenteredString(g2d, "kesulitan : " + strlevel, FONT_M, 30);
+        drawCenteredString(g2d, "LEVEL : " + strlevel, FONT_M, 30);
         if(best >= points)
             g2d.drawString("BEST: " + String.format ("%04d", best), 650, 30);
         if(best < points)
@@ -439,7 +441,7 @@ public class Game extends JPanel {
             	System.out.println("NewGame");
             }
 
-            if (key == KeyEvent.VK_ESCAPE) {
+            if ((status == GameStatus.PAUSED || status == GameStatus.RUNNING) && key == KeyEvent.VK_ESCAPE) {
                 togglePause();
             }
         }

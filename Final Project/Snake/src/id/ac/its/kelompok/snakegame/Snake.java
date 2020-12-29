@@ -5,8 +5,6 @@ import java.util.*;
 public class Snake {
     private Direction direction;
     private Point head;
-    private int level=1;
-    private int r = 255, g = 212, b = 0;
     private ArrayList<Point> tail;
     
     public Snake(int x, int y) {
@@ -50,37 +48,4 @@ public class Snake {
         return this.head;
     }
 
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
-    }
-
-    public int getR() {
-        return r;
-    }
-
-    public void setR(int r) {
-        this.r = r;
-    }
-
-    public int getG() {
-        return g;
-    }
-
-    public void setG(int g) {
-        this.g = g;
-    }
-
-    public int getB() {
-        return b;
-    }
-
-    public void setB(int b) {
-        this.b = b;
-    }
-
-    
 }
