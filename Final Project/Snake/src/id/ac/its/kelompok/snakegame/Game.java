@@ -13,11 +13,14 @@ public class Game extends JPanel {
  
     private static final long serialVersionUID = 1L;
     private Timer timer;
+    private Timer timerBigCherry;
     private Snake snake;
     private Point cherry;
+    private BigCherry bigcherry;
     private int pick_color;
     private int points = 0;
     private int best;
+    private int cherry_count;
     private BufferedImage image;
     private GameStatus status;
     private boolean didLoadCherryImage = true;
@@ -55,6 +58,8 @@ public class Game extends JPanel {
         color = Color.BLUE;
         level = 1;
         strlevel = "Mudah";
+        cherry_count = 1;
+        bigcherry = null;
         repaint();
         
     }
@@ -68,6 +73,7 @@ public class Game extends JPanel {
     }
 
     private void update() {
+    	
         snake.move(level);
         //biteFile = ".//bite.wav";
         if (cherry != null && snake.getHead().intersects(cherry, 15)) {
@@ -77,11 +83,27 @@ public class Game extends JPanel {
             cherry = null;
             points += 1 * level;
         }
-
-        if (cherry == null) {
-            spawnCherry();
+        
+        if (bigcherry != null && snake.getHead().intersects(bigcherry, 25)) {
+            //bite.setFile(biteFile);
+            //bite.play();
+            snake.addTail();
+            bigcherry = null;
+            points += 3 * level;
+            
         }
 
+        if (cherry == null && bigcherry == null && cherry_count % 5 != 0) {
+            spawnCherry();
+            cherry_count++;
+        }
+        
+        if(bigcherry == null && cherry == null && cherry_count % 5 == 0) {
+        	spawnBigCherry();
+        	cherry_count++;
+        }
+        
+       // System.out.println(cherry_count);
         checkForGameOver();
     }
 
@@ -130,7 +152,14 @@ public class Game extends JPanel {
             || head.getX() >= WIDTH
             || head.getY() <= 40
             || head.getY() >= HEIGHT + 30;
-
+            
+        System.out.println(head.getX() + " " + head.getY());
+        
+        if(this.level == 4 && !hitBoundary) {
+        	hitBoundary = (head.getX() >= 185 && head.getX() <= 585 && head.getY() >= 285 && head.getY() <= 315)
+        				|| (head.getX() >= 500 && head.getX() <= 515 && head.getY() >= 65 && head.getY() <= 235)
+        				|| (head.getX() >= 250 && head.getX() <= 265 && head.getY() >= 335 && head.getY() <= 400);
+        }
         boolean ateItself = false;
 
         for(Point t : snake.getTail()) {
@@ -191,6 +220,7 @@ public class Game extends JPanel {
         	g.setColor(new Color(179, 240, 219));
             drawCenteredString(g, "Sedang", FONT_M, 350);
             drawCenteredString(g, "Sulit", FONT_M, 400);
+            drawCenteredString(g, "Extreme", FONT_M, 450);
     	}
     	
     	if(this.level == 2) {
@@ -201,6 +231,7 @@ public class Game extends JPanel {
             drawCenteredString(g, "Sedang", FONT_M, 350);
             g.setColor(new Color(179, 240, 219));
             drawCenteredString(g, "Sulit", FONT_M, 400);
+            drawCenteredString(g, "Extreme", FONT_M, 450);
     	}
     	if(this.level == 3) {
     		strlevel = "Sulit";
@@ -209,13 +240,30 @@ public class Game extends JPanel {
             drawCenteredString(g, "Sedang", FONT_M, 350);
             g.setColor(new Color(185, 49, 79));
             drawCenteredString(g, "Sulit", FONT_M, 400);
+            g.setColor(new Color(179, 240, 219));
+            drawCenteredString(g, "Extreme", FONT_M, 450);
+    	}
+    	if(this.level == 4) {
+    		strlevel = "Extreme";
+    		g.setColor(new Color(179, 240, 219));
+            drawCenteredString(g, "Mudah", FONT_M, 300);   
+            drawCenteredString(g, "Sedang", FONT_M, 350);
+            drawCenteredString(g, "Sulit", FONT_M, 400);
+            g.setColor(new Color(185, 49, 79));
+            drawCenteredString(g, "Extreme", FONT_M, 450);
     	}
     	
     }
     
     private void render(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-
+        
+        //gambar garis kotak2
+//        for(int i=0; i<51; i++)
+//    		g2d.drawLine(i*15, 0, i*15, 520);
+//        for(int i=0; i<35; i++)
+//    		g2d.drawLine(0, i*15, 760, i*15);
+        
         // Warna Tulisan, Ubah juga line 186
         g2d.setColor(new Color(179, 240, 219));
         g2d.setFont(FONT_M);
@@ -317,6 +365,16 @@ public class Game extends JPanel {
             g2d.setColor(new Color(185, 49, 79)); // Warna Tulisan
           }
         }
+        
+        if (bigcherry != null) {
+            if (didLoadCherryImage) {
+              g2d.drawImage(image, bigcherry.getX(), bigcherry.getY(), 80, 80, null);
+            } else {
+              g2d.setColor(new Color(209, 52, 91)); // Warna Cherry
+              g2d.fillOval(bigcherry.getX(), bigcherry.getY(), 25, 25);
+              g2d.setColor(new Color(185, 49, 79)); // Warna Tulisan
+            }
+          }
 
         if (status == GameStatus.GAME_OVER) {
         	System.out.println("Gameover");
@@ -343,7 +401,13 @@ public class Game extends JPanel {
 
             g2d.fillRect(t.getX(), t.getY(), 15, 15);
         }
-
+        
+        if(level == 4) {
+        	g2d.setColor(new Color(39, 66, 64));
+        	g2d.fillRect(200, 300, 400, 15);
+        	g2d.fillRect(500, 80, 15, 160);
+        	g2d.fillRect(250, 350, 15, 150);
+        }
         //OutLine
         g2d.setColor(new Color(39, 66, 64));
         g2d.setStroke(new BasicStroke(4));
@@ -351,8 +415,13 @@ public class Game extends JPanel {
     }
 
     public void spawnCherry() {
-        cherry = new Point((new Random()).nextInt(WIDTH - 60) + 20,
-            (new Random()).nextInt(HEIGHT - 60) + 40);
+    	cherry = new Point((new Random()).nextInt(WIDTH - 60) + 20,
+    	            (new Random()).nextInt(HEIGHT - 60) + 40); 	
+    }
+    
+    public void spawnBigCherry() {
+    	bigcherry = new BigCherry((new Random()).nextInt(WIDTH - 60) + 20,
+    			(new Random()).nextInt(HEIGHT - 60) + 40);
     }
 
     private class KeyListener extends KeyAdapter {
@@ -400,7 +469,7 @@ public class Game extends JPanel {
             	
             	if(key == KeyEvent.VK_DOWN) {
             		level++;
-            		if(level > 3)
+            		if(level > 4)
             			level=1;
             		repaint();
             	}
@@ -408,7 +477,7 @@ public class Game extends JPanel {
             	if(key == KeyEvent.VK_UP) {
             		level--;
             		if(level < 1)
-            			level=3;
+            			level=4;
             		repaint();
             	}
             		
@@ -448,9 +517,17 @@ public class Game extends JPanel {
     }
 
     private class GameLoop extends java.util.TimerTask {
+    	int delay=0, detik=0;
         public void run() {
+        	delay++;
+        	if(delay % 20 == 0) {
+        		detik++;
+        		System.out.println("detik = " + detik);
+        	}
+        	
             update();
             repaint();
         }
     }
+    
 }
