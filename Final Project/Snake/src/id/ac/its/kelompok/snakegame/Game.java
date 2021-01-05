@@ -394,12 +394,12 @@ public class Game extends JPanel {
         
         //Snake
         g2d.setColor(color);
-        g2d.fillRect(p.getX(), p.getY(), 15, 15);
+        g2d.fillRect(p.getX(), p.getY(), 17, 17);
 
         for(int i = 0, size = snake.getTail().size(); i < size; i++) {
             Point t = snake.getTail().get(i);
 
-            g2d.fillRect(t.getX(), t.getY(), 15, 15);
+            g2d.fillRect(t.getX(), t.getY(), 17, 17);
         }
         
         if(level == 4) {

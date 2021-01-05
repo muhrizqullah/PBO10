@@ -31,6 +31,8 @@ Pada class ini berfungsi melakukan pengulangan program sesuai alur, hingga user 
 
 [Video Youtube](https://youtu.be/wpvXzk0td7U)
 
+<img height="400px" alt="Diagram" src="READMEAssets/Diagram.jpg">
+
 ### Link Referensi
 [HighScore](https://github.com/gterrono/tetris/tree/master/src)
 
