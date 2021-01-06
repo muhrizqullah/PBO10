@@ -1,6 +1,11 @@
 package id.ac.its.kelompok.snakegame;
 import javax.swing.JPanel;
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
+
 import java.util.*;
 import java.util.Timer;
 import java.awt.*;
@@ -16,7 +21,7 @@ public class Game extends JPanel {
     private Snakes snake;
     private Cherry cherry;
     private BigCherry bigcherry;
-    private int pick_color;
+    private int pick_color, pick_menu;
     private int points = 0;
     private int best;
     private int cherry_count;
@@ -25,6 +30,8 @@ public class Game extends JPanel {
     private boolean didLoadCherryImage = true;
     private int level;
     private int time, delay;
+    private SoundEffect se = new SoundEffect();
+    private SoundEffect seMusic = new SoundEffect();
     //private String biteFile;
     
     //private SoundEffect bite = new SoundEffect();
@@ -39,13 +46,9 @@ public class Game extends JPanel {
     private static HighScore[] h=HighScore.getHighScores();
     private static Color colors[] = {Color.BLUE, Color.DARK_GRAY, Color.YELLOW, Color.GREEN, Color.PINK, Color.WHITE, Color.RED};
     private static String levels[] = {"Mudah", "Sedang", "Sulit", "Extreme"};
+    private static String menus[] = {"Mulai Main", "Pengaturan", "Credits"};
     
-    public Game() {
-        try {
-            image = ImageIO.read(new File("cherry.png"));
-        } catch (IOException e) {
-            didLoadCherryImage = false;
-        }
+    public Game() {	
 
         addKeyListener(new KeyListener());
         setFocusable(true);
@@ -55,10 +58,13 @@ public class Game extends JPanel {
         status = GameStatus.NOT_STARTED;
         snake = new Snakes(WIDTH / 2, HEIGHT / 2);
         snake.setColor(Color.BLUE);
-        
+    	seMusic.setFile(".//assets//music.wav");
+    	seMusic.playMusic();
+    	
         //start value
         time = 0; delay=0;
         pick_color=0;
+        pick_menu=0;
         level = 0;
         cherry_count = 1;
         bigcherry = null;
@@ -79,21 +85,20 @@ public class Game extends JPanel {
     private void update() {
     	
         snake.move(level+1);
-        //biteFile = ".//bite.wav";
 
         if (cherry != null && snake.getHead().checkIntersects(cherry, 12)) {
-            //bite.setFile(biteFile);
-            //bite.play();
+        	se.setFile(".//assets//bite.wav");
+            se.play();
             snake.addTail();
             cherry = null;
             points += 1 * (level+1);
         }
         
         if (bigcherry != null) {
-            //bite.setFile(biteFile);
-            //bite.play();
         	//System.out.println("detik bc =" + time + " " + bigcherry.getSpawn_time());
         	if(snake.getHead().checkIntersects(bigcherry, 21)) {
+        		se.setFile(".//assets//bigcherry.wav");
+                se.play();
         		snake.addTail();
                 bigcherry = null;
                 points += 3 * (level+1);
@@ -137,6 +142,8 @@ public class Game extends JPanel {
             case PAUSED:
                 timer.cancel();
             case GAME_OVER:
+            	se.setFile(".//assets//gameover.wav");
+                se.play();
                 timer.cancel();
                 best = points > best ? points : best;
                 break;
@@ -203,12 +210,22 @@ public class Game extends JPanel {
         g.setFont(FONT_M);
 
         if (status == GameStatus.NOT_STARTED) {
+        	//MAIN MENU
           drawCenteredString(g, "SNAKE", FONT_XL, 200);
           g.setColor(new Color(185, 49, 79));
           drawCenteredString(g, "GAME", FONT_XL, 300);
+          
           g.setColor(new Color(97, 168, 156));
-          drawCenteredString(g, "Tekan keyboard untuk mulai main!", FONT_M_ITALIC, 360);
-          drawCenteredString(g, "Tekan Space untuk pengaturan!", FONT_M_ITALIC, 390);
+          drawCenteredString(g, menus[pick_menu], FONT_L_ITALIC, 360 + 50 * pick_menu);
+          
+      	  for(int i=0; i<3; i++) {
+      		if(i == pick_menu)
+      			continue;
+      		g.setColor(new Color(179, 240, 219));
+      		drawCenteredString(g, menus[i], FONT_M_ITALIC, 360 + 50 * i);
+      	  }
+//          drawCenteredString(g, "Tekan keyboard untuk mulai main!", FONT_M_ITALIC, 360);
+//          drawCenteredString(g, "Tekan Space untuk pengaturan!", FONT_M_ITALIC, 390);
           drawCenteredString(g, "Kesulitan : " + levels[level], FONT_M_ITALIC, 540);
        
           return;
@@ -344,6 +361,7 @@ public class Game extends JPanel {
             {
             	if(key == KeyEvent.VK_ENTER) {
             		setStatus(GameStatus.NOT_STARTED);
+            		key = KeyEvent.VK_0;
             		points = 0;
                     cherry = null;
                     snake = new Snakes(WIDTH / 2, HEIGHT / 2);
@@ -365,6 +383,8 @@ public class Game extends JPanel {
 
             if(status == GameStatus.SETTINGS)
             {
+            	se.setFile(".//assets//pick.wav");
+                se.play();
             	if(key == KeyEvent.VK_RIGHT ) {
             		pick_color++;
             		if(pick_color > 6)
@@ -394,15 +414,37 @@ public class Game extends JPanel {
             		
                 if(key == KeyEvent.VK_ENTER) {
                     setStatus(GameStatus.NOT_STARTED);
+                    key = KeyEvent.VK_0;
                     repaint();
                 }
             }
 
-            if (status == GameStatus.NOT_STARTED && key != KeyEvent.VK_ENTER) {
-                if(key == KeyEvent.VK_SPACE)
-                    toggleSettings();
-                else
-                    setStatus(GameStatus.RUNNING);
+            if (status == GameStatus.NOT_STARTED) {
+            	se.setFile(".//assets//pick.wav");
+                se.play();
+            	if(key == KeyEvent.VK_DOWN) {
+            		pick_menu++;
+            		if(pick_menu > 2)
+            			pick_menu=0;
+            		repaint();
+            	}
+            	
+            	if(key == KeyEvent.VK_UP) {
+            		pick_menu--;
+            		if(pick_menu < 0)
+            			pick_menu=2;
+            		repaint();
+            	}
+            		
+                if(key == KeyEvent.VK_ENTER) {
+                	if(pick_menu == 0)
+                		setStatus(GameStatus.RUNNING);
+                	else if(pick_menu == 1)
+                		toggleSettings();
+                	else if(pick_menu == 2)
+                		toggleSettings();
+                    repaint();
+                }
             }
 
             if (status == GameStatus.GAME_OVER && key == KeyEvent.VK_ENTER) {
@@ -441,4 +483,38 @@ public class Game extends JPanel {
         }
     }
     
+    public class SoundEffect {
+		
+		Clip clip;
+		
+		public void setFile(String soundFileName){
+			
+			try{
+				File file = new File(soundFileName);
+				AudioInputStream sound = AudioSystem.getAudioInputStream(file);	
+				clip = AudioSystem.getClip();
+				clip.open(sound);
+			}
+			catch(Exception e){
+				
+			}
+		}
+		
+		public void play(){			
+			clip.setFramePosition(0);
+			clip.start();
+		}
+		
+		public void playMusic() {
+			FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+			double gain = 0.05;   
+
+			float dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
+			gainControl.setValue(dB);
+			clip.setFramePosition(0);
+//			clip.start();
+			clip.loop(Clip.LOOP_CONTINUOUSLY);
+		}
+
+	}
 }
