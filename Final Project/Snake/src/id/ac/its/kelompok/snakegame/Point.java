@@ -13,6 +13,22 @@ public class Point {
         this.y = p.getY();
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
     public void move(Direction d, int value) {
         switch(d) {
             case UP: this.y -= value; break;
@@ -22,42 +38,15 @@ public class Point {
         }
     }
 
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public Point setX(int x) {
-        this.x = x;
-
-        return this;
-    }
-
-    public Point setY(int y) {
-        this.y = y;
-
-        return this;
-    }
-
     public boolean equals(Point p) {
         return this.x == p.getX() && this.y == p.getY();
     }
 
-    public String toString() {
-        return "(" + x + ", " + y + ")";
-    }
-
-    public boolean intersects(Point p) {
-        return intersects(p, 10);
-    }
-
-    public boolean intersects(Point p, int tolerance) {
+    public boolean checkIntersects(Point p, int tolerance) {
         int diffX = Math.abs(x - p.getX());
         int diffY = Math.abs(y - p.getY());
 
         return this.equals(p) || (diffX <= tolerance && diffY <= tolerance);
     }
+
 }
