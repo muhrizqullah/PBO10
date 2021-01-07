@@ -261,7 +261,15 @@ public class Game extends JPanel {
         //Gambar credits screen di sini
         if(status == GameStatus.CREDITS) {
         	System.out.println("credits");
-        	drawCenteredString(g, "tekan Enter untuk kembali", FONT_M_ITALIC, 560);
+        	drawCenteredString(g, "CREDITS", FONT_L_ITALIC, 75);
+        	
+        	drawCenteredString(g, "Production", FONT_M_ITALIC, 210);
+        	drawCenteredString(g, "0001-Christoper Baptista", FONT_M_ITALIC, 250);
+        	drawCenteredString(g, "0030-Bunga Fairuz Wijdan", FONT_M_ITALIC, 280);
+        	drawCenteredString(g, "0178-Muhammad Rizqullah Akbar", FONT_M_ITALIC, 310);
+        	
+        	drawCenteredString(g, "2021", FONT_M_ITALIC, 500);
+		drawCenteredString(g, "tekan Enter untuk kembali", FONT_M_ITALIC, 560);
         	
         	return;  //jangan lupa return
         }
