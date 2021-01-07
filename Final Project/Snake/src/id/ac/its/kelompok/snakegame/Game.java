@@ -250,7 +250,7 @@ public class Game extends JPanel {
         	drawCenteredString(g, "0178-Muhammad Rizqullah Akbar", FONT_M_ITALIC, 310);
         	
         	drawCenteredString(g, "2021", FONT_M_ITALIC, 500);
-		    drawCenteredString(g, "tekan Enter untuk kembali", FONT_M_ITALIC, 560);
+		    drawCenteredString(g, "Tekan Enter untuk kembali", FONT_M_ITALIC, 560);
         	
         	return;  //jangan lupa return
         }
