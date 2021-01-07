@@ -157,11 +157,6 @@ public class Game extends JPanel {
         repaint();
     }
 
-    private void toggleSettings() {
-        setStatus(status == GameStatus.SETTINGS ? GameStatus.NOT_STARTED : GameStatus.SETTINGS);
-        repaint();
-    }
-
     private void checkForGameOver() {
         Point head = snake.getHead();
         boolean hitBoundary = head.getX() <= 10
@@ -262,7 +257,15 @@ public class Game extends JPanel {
             drawCenteredString(g, "Tekan enter untuk selesai", FONT_M_ITALIC, 560);
             return;
         }
-
+        
+        //Gambar credits screen di sini
+        if(status == GameStatus.CREDITS) {
+        	System.out.println("credits");
+        	drawCenteredString(g, "tekan Enter untuk kembali", FONT_M_ITALIC, 560);
+        	
+        	return;  //jangan lupa return
+        }
+        
         // Penampilan score pada game
         best = h[0].getScore();
         g.setColor(new Color(90, 182, 193)); //Wana tulisan SCORE
@@ -439,11 +442,16 @@ public class Game extends JPanel {
                 if(key == KeyEvent.VK_ENTER) {
                 	if(pick_menu == 0)
                 		setStatus(GameStatus.RUNNING);
-                	else if(pick_menu == 1)
-                		toggleSettings();
-                	else if(pick_menu == 2)
-                		toggleSettings();
-                    repaint();
+                	else if(pick_menu == 1) {
+                		setStatus(GameStatus.SETTINGS);
+                        repaint();
+                	}
+                	else if(pick_menu == 2) {
+                		setStatus(GameStatus.CREDITS);
+                		repaint();
+                	}
+                	key = KeyEvent.VK_0;
+                		
                 }
             }
 
@@ -462,7 +470,13 @@ public class Game extends JPanel {
             	showHighscore();
             	System.out.println("NewGame");
             }
-
+            
+            if (status == GameStatus.CREDITS && key == KeyEvent.VK_ENTER) {
+            	setStatus(GameStatus.NOT_STARTED);
+                key = KeyEvent.VK_0;
+                repaint();
+            }
+            
             if ((status == GameStatus.PAUSED || status == GameStatus.RUNNING) && key == KeyEvent.VK_ESCAPE) {
                 togglePause();
             }
