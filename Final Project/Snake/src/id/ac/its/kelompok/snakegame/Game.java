@@ -110,11 +110,13 @@ public class Game extends JPanel {
     }
 
     private void reset() {
-    	time = 0; delay =0;
+        time = 0; 
+        delay =0;
         points = 0;
         cherry = null;
         cherry_count = 1;
         snake = new Snakes(WIDTH / 2, HEIGHT / 2);
+        snake.setColor(colors[pick_color]);
         setStatus(GameStatus.RUNNING);
     }
     
@@ -150,10 +152,10 @@ public class Game extends JPanel {
 
     private void checkForGameOver() {
         Point head = snake.getHead();
-        boolean hitBoundary = head.getX() <= 10
-            || head.getX() >= WIDTH
+        boolean hitBoundary = head.getX() <= 20
+            || head.getX() >= WIDTH + 5
             || head.getY() <= 40
-            || head.getY() >= HEIGHT + 30;
+            || head.getY() >= HEIGHT + 25;
         
         if(this.level == 4 && !hitBoundary) {
         	hitBoundary = (head.getX() >= 185 && head.getX() <= 585 && head.getY() >= 285 && head.getY() <= 315)
@@ -303,7 +305,8 @@ public class Game extends JPanel {
 
         // GAME OVER
         if (status == GameStatus.GAME_OVER) {
-        	System.out.println("Gameover");
+            System.out.println("Gameover");
+            g.setColor(new Color(185, 49, 79));
             drawCenteredString(g, "Yah, Nabrak!", FONT_L, 300);
             g.setColor(new Color(239, 199, 95));
             drawCenteredString(g, "Tekan ENTER untuk melihat Top Score", FONT_M_ITALIC, 350);
@@ -315,12 +318,14 @@ public class Game extends JPanel {
         // GAME PAUSED
         if (status == GameStatus.PAUSED) {
             System.out.println("Paused");
-            drawCenteredString(g, "PAUSED", FONT_L_ITALIC, 75);
+            g.setColor(new Color(185, 49, 79));
+            drawCenteredString(g, "PAUSED", FONT_M_ITALIC, 235);
             drawCenteredString(g, "Loh, kok berhenti?", FONT_L_ITALIC, 300);
             return;
         }
         
         // Snake draw
+        System.out.printf("x: %d, y: %d\n", snake.getHead().getX(), snake.getHead().getY());
         snake.drawSnake(g);
 
         // Draw wall on extreme level
@@ -371,7 +376,7 @@ public class Game extends JPanel {
             	}
             		
             	else
-            		reset();
+                    reset();
             }
 
             if (status == GameStatus.RUNNING) {
@@ -473,6 +478,9 @@ public class Game extends JPanel {
             }
             
             if (status == GameStatus.CREDITS && key == KeyEvent.VK_ENTER) {
+                // PLAY SOUND WHEN BACK TO MAIN MENU
+                se.setFile(".//assets//pick.wav");
+                se.play();
             	setStatus(GameStatus.NOT_STARTED);
                 key = KeyEvent.VK_0;
                 repaint();
