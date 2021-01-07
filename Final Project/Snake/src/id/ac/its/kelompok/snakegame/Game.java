@@ -1,55 +1,48 @@
 package id.ac.its.kelompok.snakegame;
 import javax.swing.JPanel;
-import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.FloatControl;
-
 import java.util.*;
 import java.util.Timer;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.*;
-import java.io.*;
 import javax.swing.*;
 
 public class Game extends JPanel {
  
     private static final long serialVersionUID = 1L;
-    private Timer timer;
-    private Snakes snake;
-    private Cherry cherry;
-    private BigCherry bigcherry;
-    private int pick_color, pick_menu;
-    private int points = 0;
-    private int best;
-    private int cherry_count;
-    private BufferedImage image;
-    private GameStatus status;
-    private boolean didLoadCherryImage = true;
-    private int level;
-    private int time, delay;
-    private SoundEffect se = new SoundEffect();
-    private SoundEffect seMusic = new SoundEffect();
-    //private String biteFile;
-    
-    //private SoundEffect bite = new SoundEffect();
+    // Default font
     private static Font FONT_M = new Font("ArcadeClassic", Font.PLAIN, 24);
     private static Font FONT_M_ITALIC = new Font("ArcadeClassic", Font.ITALIC, 24);
     private static Font FONT_L_ITALIC = new Font("ArcadeClassic", Font.ITALIC, 60);
     private static Font FONT_L = new Font("ArcadeClassic", Font.PLAIN, 84);
     private static Font FONT_XL = new Font("ArcadeClassic", Font.PLAIN, 150);
+    // Game Frame width and height
     private static int WIDTH = 760;
     private static int HEIGHT = 520;
+    // Timer variable
+    private Timer timer;
+    private int time, delay;
     private static int DELAY = 50;
+    // Object init
+    private Snakes snake;
+    private Cherry cherry;
+    private BigCherry bigcherry;
+    // Counter and utility variable
+    private int pick_color, pick_menu;
+    private int points = 0;
+    private int best;
+    private int level;
+    private int cherry_count;
+    private GameStatus status;
     private static HighScore[] h=HighScore.getHighScores();
     private static Color colors[] = {Color.BLUE, Color.DARK_GRAY, Color.YELLOW, Color.GREEN, Color.PINK, Color.WHITE, Color.RED};
     private static String levels[] = {"Mudah", "Sedang", "Sulit", "Extreme"};
     private static String menus[] = {"Mulai Main", "Pengaturan", "Credits"};
+    //Sound Effect init
+    private SoundEffect se = new SoundEffect();
+    private SoundEffect seMusic = new SoundEffect();
     
+    // Game Class default constructor
     public Game() {	
-
         addKeyListener(new KeyListener());
         setFocusable(true);
         setBackground(new Color(13, 24, 33));
@@ -58,11 +51,12 @@ public class Game extends JPanel {
         status = GameStatus.NOT_STARTED;
         snake = new Snakes(WIDTH / 2, HEIGHT / 2);
         snake.setColor(Color.BLUE);
+        // Playing in game music
     	seMusic.setFile(".//assets//music.wav");
     	seMusic.playMusic();
-    	
         //start value
-        time = 0; delay=0;
+        time = 0;
+        delay=0;
         pick_color=0;
         pick_menu=0;
         level = 0;
@@ -70,14 +64,12 @@ public class Game extends JPanel {
         bigcherry = null;
         
         repaint();
-        
     }
 
     @Override
     public void paintComponent(Graphics g) {
-        Graphics2D g2d = (Graphics2D) g;
         super.paintComponent(g);
-        render(g2d);
+        render((Graphics2D) g);
 
         Toolkit.getDefaultToolkit().sync();
     }
@@ -91,11 +83,10 @@ public class Game extends JPanel {
             se.play();
             snake.addTail();
             cherry = null;
-            points += 1 * (level+1);
+            points += (level+1);
         }
         
         if (bigcherry != null) {
-        	//System.out.println("detik bc =" + time + " " + bigcherry.getSpawn_time());
         	if(snake.getHead().checkIntersects(bigcherry, 21)) {
         		se.setFile(".//assets//bigcherry.wav");
                 se.play();
@@ -115,7 +106,6 @@ public class Game extends JPanel {
             cherry_count++;
         }
                 
-       // System.out.println(cherry_count);
         checkForGameOver();
     }
 
@@ -142,6 +132,7 @@ public class Game extends JPanel {
             case PAUSED:
                 timer.cancel();
             case GAME_OVER:
+                // Play game over sound effect
             	se.setFile(".//assets//gameover.wav");
                 se.play();
                 timer.cancel();
@@ -163,8 +154,6 @@ public class Game extends JPanel {
             || head.getX() >= WIDTH
             || head.getY() <= 40
             || head.getY() >= HEIGHT + 30;
-            
-      //  System.out.println(head.getX() + " " + head.getY());
         
         if(this.level == 4 && !hitBoundary) {
         	hitBoundary = (head.getX() >= 185 && head.getX() <= 585 && head.getY() >= 285 && head.getY() <= 315)
@@ -190,22 +179,14 @@ public class Game extends JPanel {
         g.drawString(text, x, y);
     }
     
-   
-    
     private void render(Graphics2D g) {
-        
-        //gambar garis kotak2
-//        for(int i=0; i<51; i++)
-//    		g.drawLine(i*15, 0, i*15, 520);
-//        for(int i=0; i<35; i++)
-//    		g.drawLine(0, i*15, 760, i*15);
-        
+
         // Warna Tulisan, Ubah juga line 186
         g.setColor(new Color(179, 240, 219));
         g.setFont(FONT_M);
 
+        //MAIN MENU
         if (status == GameStatus.NOT_STARTED) {
-        	//MAIN MENU
           drawCenteredString(g, "SNAKE", FONT_XL, 200);
           g.setColor(new Color(185, 49, 79));
           drawCenteredString(g, "GAME", FONT_XL, 300);
@@ -218,19 +199,19 @@ public class Game extends JPanel {
       			continue;
       		g.setColor(new Color(179, 240, 219));
       		drawCenteredString(g, menus[i], FONT_M_ITALIC, 360 + 50 * i);
-      	  }
-//          drawCenteredString(g, "Tekan keyboard untuk mulai main!", FONT_M_ITALIC, 360);
-//          drawCenteredString(g, "Tekan Space untuk pengaturan!", FONT_M_ITALIC, 390);
+            }
+            
           drawCenteredString(g, "Kesulitan : " + levels[level], FONT_M_ITALIC, 540);
        
           return;
         }
 
+        // GAME SETTINGS
         if (status == GameStatus.SETTINGS) {
             System.out.println("Settings");
             drawCenteredString(g, "SETTINGS", FONT_L_ITALIC, 75);
             
-            //pilih warna
+            // Choose Snake Color
             drawCenteredString(g, "Pilih warna ularmu sendiri!", FONT_M_ITALIC, 125);
             for(int i=0; i<7; i++) {
             	g.setColor(colors[i]);
@@ -241,7 +222,7 @@ public class Game extends JPanel {
             g.fillOval(75 + 100 * pick_color, 155, 20, 20);
             snake.setColor(colors[pick_color]);
             
-            //pilih level
+            // Choose Game Level
             drawCenteredString(g, "Pilih tingkat kesulitan yang kamu inginkan", FONT_M_ITALIC, 250);
             
             g.setColor(new Color(185, 49, 79));
@@ -258,10 +239,18 @@ public class Game extends JPanel {
             return;
         }
         
-        //Gambar credits screen di sini
+        // GAME CREDITS
         if(status == GameStatus.CREDITS) {
         	System.out.println("credits");
-        	drawCenteredString(g, "tekan Enter untuk kembali", FONT_M_ITALIC, 560);
+            drawCenteredString(g, "CREDITS", FONT_L_ITALIC, 75);
+            
+        	drawCenteredString(g, "Production", FONT_M_ITALIC, 210);
+        	drawCenteredString(g, "0001-Christoper Baptista", FONT_M_ITALIC, 250);
+        	drawCenteredString(g, "0030-Bunga Fairuz Wijdan", FONT_M_ITALIC, 280);
+        	drawCenteredString(g, "0178-Muhammad Rizqullah Akbar", FONT_M_ITALIC, 310);
+        	
+        	drawCenteredString(g, "2021", FONT_M_ITALIC, 500);
+		    drawCenteredString(g, "tekan Enter untuk kembali", FONT_M_ITALIC, 560);
         	
         	return;  //jangan lupa return
         }
@@ -276,6 +265,7 @@ public class Game extends JPanel {
         if(best < points)
             g.drawString("BEST: " + String.format ("%04d", points), 650, 30);
         
+        // GAME TOP 10 SCORES
         if (status == GameStatus.SHOW_HIGHSCORE) {
         	
         	System.out.println("Show HighScores");
@@ -302,15 +292,16 @@ public class Game extends JPanel {
 			return;
         }
         
+        // Cherry draw
         if (cherry != null) {
         	cherry.Draw(g);          
         }
-        
-        //System.out.println("delay= " + delay);
+        // BigCherry draw
         if (bigcherry != null) {
             bigcherry.Draw(g, delay);
         }
 
+        // GAME OVER
         if (status == GameStatus.GAME_OVER) {
         	System.out.println("Gameover");
             drawCenteredString(g, "Yah, Nabrak!", FONT_L, 300);
@@ -321,33 +312,40 @@ public class Game extends JPanel {
 			return;
         }
 
+        // GAME PAUSED
         if (status == GameStatus.PAUSED) {
             System.out.println("Paused");
+            drawCenteredString(g, "PAUSED", FONT_L_ITALIC, 75);
             drawCenteredString(g, "Loh, kok berhenti?", FONT_L_ITALIC, 300);
             return;
         }
         
-        //Snake
+        // Snake draw
         snake.drawSnake(g);
 
-        //draw wall level extreme
+        // Draw wall on extreme level
         if(level == 3) {
         	g.setColor(new Color(39, 66, 64));
         	g.fillRect(200, 300, 400, 15);
         	g.fillRect(500, 80, 15, 160);
         	g.fillRect(250, 350, 15, 150);
         }
-        //OutLine
+
+        // GAMEFRAME
         g.setColor(new Color(39, 66, 64));
         g.setStroke(new BasicStroke(4));
-        g.drawRect(10, 40, WIDTH, HEIGHT);
+        g.drawRect(20, 40, WIDTH, HEIGHT);
+
+        // END OF RENDER FUNCTION
     }
 
+    // SPAWN CHERRY IN RANDOM PLACES
     public void spawnCherry() {
     	cherry = new Cherry((new Random()).nextInt(WIDTH - 60) + 20,
     	            (new Random()).nextInt(HEIGHT - 60) + 40); 	
     }
     
+    // SPAWN CHERRY IN RANDOM PLACE AND FOLLOWING TIME RULES
     public void spawnBigCherry() {
     	bigcherry = new BigCherry((new Random()).nextInt(WIDTH - 60) + 20,
     			(new Random()).nextInt(HEIGHT - 60) + 40);
@@ -355,6 +353,7 @@ public class Game extends JPanel {
     	System.out.println(bigcherry.getSpawn_time());
     }
 
+    // KEYLISTENER FOR EVERY GAMESTATUS
     private class KeyListener extends KeyAdapter {
         @Override
         public void keyPressed(KeyEvent e) {
@@ -386,6 +385,7 @@ public class Game extends JPanel {
 
             if(status == GameStatus.SETTINGS)
             {
+                // Play SoundEffect when choosing color and level
             	se.setFile(".//assets//pick.wav");
                 se.play();
             	if(key == KeyEvent.VK_RIGHT ) {
@@ -423,6 +423,7 @@ public class Game extends JPanel {
             }
 
             if (status == GameStatus.NOT_STARTED) {
+                // Play SoundEffect when choosing menu
             	se.setFile(".//assets//pick.wav");
                 se.play();
             	if(key == KeyEvent.VK_DOWN) {
@@ -481,11 +482,12 @@ public class Game extends JPanel {
                 togglePause();
             }
         }
+
+        // END OF KEYLISTENER FUNCTION
     }
     
 
     private class GameLoop extends java.util.TimerTask {
-    	//int delay=0;
         public void run() {
         	delay++;
         	if(delay % 20 == 0) {
@@ -496,39 +498,4 @@ public class Game extends JPanel {
             repaint();
         }
     }
-    
-    public class SoundEffect {
-		
-		Clip clip;
-		
-		public void setFile(String soundFileName){
-			
-			try{
-				File file = new File(soundFileName);
-				AudioInputStream sound = AudioSystem.getAudioInputStream(file);	
-				clip = AudioSystem.getClip();
-				clip.open(sound);
-			}
-			catch(Exception e){
-				
-			}
-		}
-		
-		public void play(){			
-			clip.setFramePosition(0);
-			clip.start();
-		}
-		
-		public void playMusic() {
-			FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-			double gain = 0.05;   
-
-			float dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
-			gainControl.setValue(dB);
-			clip.setFramePosition(0);
-//			clip.start();
-			clip.loop(Clip.LOOP_CONTINUOUSLY);
-		}
-
-	}
 }

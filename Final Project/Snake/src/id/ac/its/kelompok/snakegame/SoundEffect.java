@@ -21,11 +21,20 @@ public class SoundEffect {
     }
     
     public void play(){
-        
+
         if(clip.isRunning())
             clip.stop();
         clip.setFramePosition(0);
         clip.start();
     }
 
+    public void playMusic() {
+        FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+        double gain = 0.05;   
+
+        float dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
+        gainControl.setValue(dB);
+        clip.setFramePosition(0);
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
+    }
 }
