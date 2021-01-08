@@ -133,6 +133,7 @@ public class Game extends JPanel {
                 break;
             case PAUSED:
                 timer.cancel();
+                break;
             case GAME_OVER:
                 // Play game over sound effect
             	se.setFile(".//assets//gameover.wav");
@@ -152,15 +153,15 @@ public class Game extends JPanel {
 
     private void checkForGameOver() {
         Point head = snake.getHead();
-        boolean hitBoundary = head.getX() <= 20
+        boolean hitBoundary = head.getX() <= 15
             || head.getX() >= WIDTH + 5
-            || head.getY() <= 40
-            || head.getY() >= HEIGHT + 25;
+            || head.getY() <= 35
+            || head.getY() >= HEIGHT + 50;
         
-        if(this.level == 4 && !hitBoundary) {
-        	hitBoundary = (head.getX() >= 185 && head.getX() <= 585 && head.getY() >= 285 && head.getY() <= 315)
-        				|| (head.getX() >= 500 && head.getX() <= 515 && head.getY() >= 65 && head.getY() <= 235)
-        				|| (head.getX() >= 250 && head.getX() <= 265 && head.getY() >= 335 && head.getY() <= 400);
+        if(this.level == 3 && !hitBoundary) {
+        	hitBoundary = (head.getX() >= 185 && head.getX() <= 600 && head.getY() >= 285 && head.getY() <= 300)
+        				|| (head.getX() >= 485 && head.getX() <= 500 && head.getY() >= 65 && head.getY() <= 235)
+        				|| (head.getX() >= 250 && head.getX() <= 265 && head.getY() >= 335 && head.getY() <= 485);
         }
         boolean ateItself = false;
 
@@ -222,7 +223,6 @@ public class Game extends JPanel {
             
             g.setColor(new Color(179, 240, 219));
             g.fillOval(75 + 100 * pick_color, 155, 20, 20);
-            snake.setColor(colors[pick_color]);
             
             // Choose Game Level
             drawCenteredString(g, "Pilih tingkat kesulitan yang kamu inginkan", FONT_M_ITALIC, 250);
@@ -243,6 +243,7 @@ public class Game extends JPanel {
         
         // GAME CREDITS
         if(status == GameStatus.CREDITS) {
+
         	System.out.println("credits");
             drawCenteredString(g, "CREDITS", FONT_L_ITALIC, 75);
             
@@ -253,6 +254,8 @@ public class Game extends JPanel {
         	
         	drawCenteredString(g, "2021", FONT_M_ITALIC, 500);
 		    drawCenteredString(g, "Tekan Enter untuk kembali", FONT_M_ITALIC, 560);
+        	//System.out.println("credits");
+
         	
         	return;  //jangan lupa return
         }
@@ -326,6 +329,7 @@ public class Game extends JPanel {
         
         // Snake draw
         System.out.printf("x: %d, y: %d\n", snake.getHead().getX(), snake.getHead().getY());
+        snake.setColor(colors[pick_color]);
         snake.drawSnake(g);
 
         // Draw wall on extreme level
@@ -372,7 +376,9 @@ public class Game extends JPanel {
             		points = 0;
                     cherry = null;
                     snake = new Snakes(WIDTH / 2, HEIGHT / 2);
-            		repaint();
+                    time=0;
+                    cherry_count=1;
+                    repaint();
             	}
             		
             	else
