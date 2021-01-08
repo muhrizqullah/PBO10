@@ -40,6 +40,7 @@ public class Game extends JPanel {
     //Sound Effect init
     private SoundEffect se = new SoundEffect();
     private SoundEffect seMusic = new SoundEffect();
+    private SoundEffect seSpawn = new SoundEffect();
     
     // Game Class default constructor
     public Game() {	
@@ -53,7 +54,7 @@ public class Game extends JPanel {
         snake.setColor(Color.BLUE);
         // Playing in game music
     	seMusic.setFile(".//assets//music.wav");
-    	seMusic.playMusic();
+    	seMusic.playMusic(0.05);
         //start value
         time = 0;
         delay=0;
@@ -94,8 +95,12 @@ public class Game extends JPanel {
                 bigcherry = null;
                 points += 3 * (level+1);
         	}
-        	else if(time - bigcherry.getSpawn_time() == 5)
+        	else if(time - bigcherry.getSpawn_time() == 5) {
         		bigcherry=null;
+        	}
+        	if(bigcherry==null)
+        		seSpawn.stop();
+        		
             
         }
         if (cherry == null && bigcherry == null) {
@@ -138,6 +143,8 @@ public class Game extends JPanel {
                 // Play game over sound effect
             	se.setFile(".//assets//gameover.wav");
                 se.play();
+                if(bigcherry!=null)
+                	seSpawn.stop();
                 timer.cancel();
                 best = points > best ? points : best;
                 break;
@@ -155,11 +162,11 @@ public class Game extends JPanel {
         Point head = snake.getHead();
         boolean hitBoundary = head.getX() <= 15
             || head.getX() >= WIDTH + 5
-            || head.getY() <= 35
+            || head.getY() <= 40
             || head.getY() >= HEIGHT + 50;
         
         if(this.level == 3 && !hitBoundary) {
-        	hitBoundary = (head.getX() >= 185 && head.getX() <= 600 && head.getY() >= 285 && head.getY() <= 300)
+        	hitBoundary = (head.getX() >= 185 && head.getX() <= 600 && head.getY() >= 285 && head.getY() <= 30)
         				|| (head.getX() >= 485 && head.getX() <= 500 && head.getY() >= 65 && head.getY() <= 235)
         				|| (head.getX() >= 250 && head.getX() <= 265 && head.getY() >= 335 && head.getY() <= 485);
         }
@@ -256,8 +263,7 @@ public class Game extends JPanel {
 		    drawCenteredString(g, "Tekan Enter untuk kembali", FONT_M_ITALIC, 560);
         	//System.out.println("credits");
 
-        	
-        	return;  //jangan lupa return
+        	return; 
         }
         
         // Penampilan score pada game
@@ -265,10 +271,8 @@ public class Game extends JPanel {
         g.setColor(new Color(90, 182, 193)); //Wana tulisan SCORE
         g.drawString("SCORE: " + String.format ("%04d", points), 10, 30);
         drawCenteredString(g, "LEVEL : " + levels[level], FONT_M, 30);
-        if(best >= points)
-            g.drawString("BEST: " + String.format ("%04d", best), 650, 30);
-        if(best < points)
-            g.drawString("BEST: " + String.format ("%04d", points), 650, 30);
+        g.drawString("BEST: " + String.format ("%04d", best), 650, 30);
+        
         
         // GAME TOP 10 SCORES
         if (status == GameStatus.SHOW_HIGHSCORE) {
@@ -356,6 +360,8 @@ public class Game extends JPanel {
     
     // SPAWN CHERRY IN RANDOM PLACE AND FOLLOWING TIME RULES
     public void spawnBigCherry() {
+    	seSpawn.setFile(".//assets//spawn2.wav");
+        seSpawn.playMusic(0.4);
     	bigcherry = new BigCherry((new Random()).nextInt(WIDTH - 60) + 20,
     			(new Random()).nextInt(HEIGHT - 60) + 40);
     	bigcherry.setSpawn_time(time);
@@ -375,6 +381,7 @@ public class Game extends JPanel {
             		key = KeyEvent.VK_0;
             		points = 0;
                     cherry = null;
+                    bigcherry = null;
                     snake = new Snakes(WIDTH / 2, HEIGHT / 2);
                     time=0;
                     cherry_count=1;
