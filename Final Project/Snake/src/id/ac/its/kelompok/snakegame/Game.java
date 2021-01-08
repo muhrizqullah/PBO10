@@ -153,10 +153,10 @@ public class Game extends JPanel {
 
     private void checkForGameOver() {
         Point head = snake.getHead();
-        boolean hitBoundary = head.getX() <= 15
+        boolean hitBoundary = head.getX() <= 20
             || head.getX() >= WIDTH + 5
-            || head.getY() <= 35
-            || head.getY() >= HEIGHT + 50;
+            || head.getY() <= 40
+            || head.getY() >= HEIGHT + 25;
         
         if(this.level == 3 && !hitBoundary) {
         	hitBoundary = (head.getX() >= 185 && head.getX() <= 600 && head.getY() >= 285 && head.getY() <= 300)
@@ -246,13 +246,24 @@ public class Game extends JPanel {
 
         	System.out.println("credits");
             drawCenteredString(g, "CREDITS", FONT_L_ITALIC, 75);
+            g.setColor(new Color(239, 199, 95));
+            drawCenteredString(g, "Developer: ", FONT_M_ITALIC, 150);
+            g.setColor(new Color(185, 49, 79));
+        	drawCenteredString(g, "0001-Christoper Baptista", FONT_M_ITALIC, 190);
+        	drawCenteredString(g, "0030-Bunga Fairuz Wijdan", FONT_M_ITALIC, 220);
+            drawCenteredString(g, "0178-Muhammad Rizqullah Akbar", FONT_M_ITALIC, 250);
+            g.setColor(new Color(239, 199, 95));
+            drawCenteredString(g, "Special Thanks To: ", FONT_M_ITALIC, 300);
+            g.setColor(new Color(185, 49, 79));
+            drawCenteredString(g, "Tuhan Yang Maha Esa", FONT_M_ITALIC, 330);
+            drawCenteredString(g, "Bapak Abdul Munif, S.Kom., M.Sc.", FONT_M_ITALIC, 360);
+            drawCenteredString(g, "Renan Vaz on GitHub", FONT_M_ITALIC, 390);
+            drawCenteredString(g, "Greg Terrono on GitHub", FONT_M_ITALIC, 420);
+            drawCenteredString(g, "stackoverflow.com and geekforgeeks.org", FONT_M_ITALIC, 450);
             
-        	drawCenteredString(g, "Production", FONT_M_ITALIC, 210);
-        	drawCenteredString(g, "0001-Christoper Baptista", FONT_M_ITALIC, 250);
-        	drawCenteredString(g, "0030-Bunga Fairuz Wijdan", FONT_M_ITALIC, 280);
-        	drawCenteredString(g, "0178-Muhammad Rizqullah Akbar", FONT_M_ITALIC, 310);
-        	
-        	drawCenteredString(g, "2021", FONT_M_ITALIC, 500);
+            
+            drawCenteredString(g, "©2021", FONT_M_ITALIC, 500);
+            g.setColor(new Color(90, 182, 193));
 		    drawCenteredString(g, "Tekan Enter untuk kembali", FONT_M_ITALIC, 560);
         	//System.out.println("credits");
 
@@ -321,8 +332,9 @@ public class Game extends JPanel {
         // GAME PAUSED
         if (status == GameStatus.PAUSED) {
             System.out.println("Paused");
-            g.setColor(new Color(185, 49, 79));
+            g.setColor(new Color(239, 199, 95));
             drawCenteredString(g, "PAUSED", FONT_M_ITALIC, 235);
+            g.setColor(new Color(185, 49, 79));
             drawCenteredString(g, "Loh, kok berhenti?", FONT_L_ITALIC, 300);
             return;
         }

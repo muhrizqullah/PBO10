@@ -25,15 +25,17 @@ Pada class ini berfungsi melakukan pengulangan program sesuai alur, hingga user 
 * Direction
 * GameStatus
 
+### Diagram Class
+
+<img height="400px" alt="Diagram" src="READMEAssets/Diagram.jpg">
+
 ### Screenshot Jalannya Program
 
 <img height="400px" alt="DemoApp" src="READMEAssets/DemoAppSnake.gif">
 
 [Video Youtube](https://youtu.be/wpvXzk0td7U)
 
-<img height="400px" alt="Diagram" src="READMEAssets/Diagram.jpg">
-
 ### Link Referensi
-[HighScore](https://github.com/gterrono/tetris/tree/master/src)
+[Snake](https://github.com/renanpvaz/java-snake)
 
-[Snake](http://zetcode.com/javagames/snake/)
+[HighScore](https://github.com/gterrono/tetris/tree/master/src)
