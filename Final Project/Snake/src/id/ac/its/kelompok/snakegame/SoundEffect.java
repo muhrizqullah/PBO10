@@ -27,10 +27,13 @@ public class SoundEffect {
         clip.setFramePosition(0);
         clip.start();
     }
+    public void stop(){
+        clip.stop();
+    }
 
-    public void playMusic() {
+    public void playMusic(double gain) {
         FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-        double gain = 0.05;   
+          
 
         float dB = (float) (Math.log(gain) / Math.log(10.0) * 20.0);
         gainControl.setValue(dB);
