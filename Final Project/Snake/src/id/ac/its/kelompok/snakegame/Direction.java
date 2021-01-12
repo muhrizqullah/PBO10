@@ -1,4 +1,5 @@
 package id.ac.its.kelompok.snakegame;
+
 public enum Direction {
     UP, DOWN, LEFT, RIGHT;
     
