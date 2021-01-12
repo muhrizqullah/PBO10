@@ -1,4 +1,5 @@
 package id.ac.its.kelompok.snakegame;
+
 public class Point {
     private int x;
     private int y;
