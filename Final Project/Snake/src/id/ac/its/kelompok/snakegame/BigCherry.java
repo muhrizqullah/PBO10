@@ -12,10 +12,6 @@ public class BigCherry extends Point {
 		this.big = false;
 	}
 	
-	public BigCherry(Point p) {
-		super(p);
-	}
-	
 	public void Draw(Graphics g, int time) {
 		g.setColor(new Color(212, 175, 55)); // Warna Cherry
 		if(isBig())	{
