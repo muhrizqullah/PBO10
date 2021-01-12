@@ -9,17 +9,8 @@ public class Cherry extends Point {
 		super(x,y);
 	}
 	
-	public Cherry(Point p) {
-		super(p);
-	}
-	
 	public void Draw(Graphics g) {
 		g.setColor(new Color(209, 52, 91)); // Warna Cherry
         g.fillOval(getX(), getY(), 15, 15);
 	}
-
-	
-	
-	
-	
 }
