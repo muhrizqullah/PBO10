@@ -27,7 +27,7 @@ Pada class ini berfungsi melakukan pengulangan program sesuai alur, hingga user 
 
 ### Diagram Class
 
-<img height="400px" alt="Diagram" src="READMEAssets/Diagram.jpg">
+![Capture60](https://user-images.githubusercontent.com/57831206/104470922-cfb01b80-55ec-11eb-8625-781ab8fcb675.JPG)
 
 ### Screenshot Jalannya Program
 
