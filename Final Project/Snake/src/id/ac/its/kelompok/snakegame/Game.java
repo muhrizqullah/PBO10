@@ -166,7 +166,7 @@ public class Game extends JPanel {
             || head.getY() >= HEIGHT + 25;
         
         if(this.level == 3 && !hitBoundary) {
-        	hitBoundary = (head.getX() >= 185 && head.getX() <= 600 && head.getY() >= 285 && head.getY() <= 30)
+        	hitBoundary = (head.getX() >= 185 && head.getX() <= 600 && head.getY() >= 285 && head.getY() <= 300)
         				|| (head.getX() >= 485 && head.getX() <= 500 && head.getY() >= 65 && head.getY() <= 235)
         				|| (head.getX() >= 250 && head.getX() <= 265 && head.getY() >= 335 && head.getY() <= 485);
         }
