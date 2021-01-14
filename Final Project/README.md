@@ -37,6 +37,7 @@ Class ini berfungsi untuk mengatur sound effect dalam game yang di dalamnya terd
 * Dapat mengatur warna dari Snake yang akan dimainkan terdapat tujuh pilihan warna
 * Dapat mengatur level game dari mudah, sedang, sulit, dan extreme dengan kecepatan move snake dan aturan poin perlevel yang berbeda
 * Untuk level extreme terdapat objek penghalang di tengah board game
+* Mengatur Snake, Cherry, dan BigCherry sebagai subclass dari Point
 * Menambahkan BigCherry sebagai makanan Snake dengan waktu spawn hanya 5 detik dan poin yang diperoleh 3x lipat, saat spawn BigCherry akan terlihat seperti berkedip karena ada batas waktu spawn
 * Menambahkan fitur Highscore dengan JOptionPane untuk memasukkan nama dan menyimpan 10 top score dalam game
 * Menambahkan sound effect dari tiap action dalam game
