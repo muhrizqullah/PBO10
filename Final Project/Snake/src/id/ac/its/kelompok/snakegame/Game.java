@@ -282,8 +282,10 @@ public class Game extends JPanel {
         g.setColor(new Color(90, 182, 193)); //Wana tulisan SCORE
         g.drawString("SCORE: " + String.format ("%04d", points), 10, 30);
         drawCenteredString(g, "LEVEL : " + levels[level], FONT_M, 30);
+        if(best >= points)
         g.drawString("BEST: " + String.format ("%04d", best), 650, 30);
-        
+        if(best < points)
+        g.drawString("BEST: " + String.format ("%04d", points), 650, 30);
         
         // GAME TOP 10 SCORES
         if (status == GameStatus.SHOW_HIGHSCORE) {

@@ -46,13 +46,17 @@ Class ini berfungsi untuk mengatur sound effect dalam game yang di dalamnya terd
 
 ### Diagram Class
 
-![Capture60](https://user-images.githubusercontent.com/57831206/104470922-cfb01b80-55ec-11eb-8625-781ab8fcb675.JPG)
+<img height="400px" alt="Diagram" src="READMEAssets/SnakeDiagram.jpg">
+
+### Link Video Presentasi
+
+[Video Presentasi](https://youtu.be/S40It3yBGBQ)
 
 ### Screenshot Jalannya Program
 
 <img height="400px" alt="DemoApp" src="READMEAssets/DemoAppSnake.gif">
 
-[Video Youtube](https://youtu.be/wpvXzk0td7U)
+[Video Youtube](https://youtu.be/QI636MWKgyU)
 
 ### Link Referensi
 [Snake](https://github.com/renanpvaz/java-snake)
