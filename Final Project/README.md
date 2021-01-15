@@ -52,11 +52,11 @@ Class ini berfungsi untuk mengatur sound effect dalam game yang di dalamnya terd
 
 [Video Presentasi](https://youtu.be/S40It3yBGBQ)
 
-### Screenshot Jalannya Program
+### Dokumentasi Jalannya Program
 
 <img height="400px" alt="DemoApp" src="READMEAssets/DemoAppSnake.gif">
 
-[Video Youtube](https://youtu.be/QI636MWKgyU)
+[Video Demo App](https://youtu.be/QI636MWKgyU)
 
 ### Link Referensi
 [Snake](https://github.com/renanpvaz/java-snake)
